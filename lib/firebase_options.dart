@@ -14,12 +14,12 @@ import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 ///
 /// Con esa misma configuración se sincronizarán el móvil y la tablet.
 const Map<String, String> _firebaseConfig = {
-  'apiKey': 'PASTE_YOUR_API_KEY',
-  'authDomain': 'TU-PROYECTO.firebaseapp.com',
-  'projectId': 'TU-PROYECTO',
-  'storageBucket': 'TU-PROYECTO.appspot.com',
-  'messagingSenderId': 'TU_SENDER_ID',
-  'appId': 'TU_APP_ID',
+  'apiKey': 'AIzaSyA8nR5L90rRgJYd_UHM_PeoehTjKpUSpqA',
+  'authDomain': 'discipl-bab9e.firebaseapp.com',
+  'projectId': 'discipl-bab9e',
+  'storageBucket': 'discipl-bab9e.firebasestorage.app',
+  'messagingSenderId': '731048401298',
+  'appId': '1:731048401298:web:c513b24e3cbdc270ce094b',
 };
 
 class DefaultFirebaseOptions {
