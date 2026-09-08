@@ -23,17 +23,51 @@ jobs:
         with:
           flutter-version: '3.35.5'
           channel: stable
-          cache: true
 
-      - name: Flutter pub get
+      - name: Pre-cache Flutter SDK
         run: flutter pub get
 
-      - name: Build release APK
-        run: flutter build apk --release
+      - name: Build APK (Gradle 8.14.2 directo)
+        run: |
+          export ANDROID_HOME="${ANDROID_HOME:-$HOME/Android/Sdk}"
+          export ANDROID_SDK_ROOT="${ANDROID_HOME}"
+          # Descargar Gradle 8.14.2 (bypass del wrapper jar roto)
+          GRADLE_VER="8.14.2"
+          mkdir -p $HOME/gradle-dist
+          curl -sL -o $HOME/gradle-dist/gradle.zip "https://services.gradle.org/distributions/gradle-${GRADLE_VER}-bin.zip"
+          unzip -qo $HOME/gradle-dist/gradle.zip -d $HOME/gradle-dist
+          export PATH="$HOME/gradle-dist/gradle-${GRADLE_VER}/bin:$PATH"
+          gradle --version
+          # Compilar usando flutter (que gestiona el pipeline completo)
+          cd android
+          gradle assembleRelease
 
-      - name: Upload APK
+      - name: Localizar y copiar el APK
+        run: |
+          # Buscar el APK en todas las rutas posibles
+          APK=""
+          for f in \
+            build/app/outputs/flutter-apk/app-release.apk \
+            android/app/build/outputs/apk/release/app-release.apk \
+            android/app/build/outputs/apk/release/*.apk ; do
+            if [ -f "$f" ]; then APK="$f"; break; fi
+          done
+          # Si no, buscar cualquier .apk en el proyecto
+          if [ -z "$APK" ]; then
+            APK=$(find . -name "app-release.apk" 2>/dev/null | head -1)
+          fi
+          if [ -z "$APK" ]; then
+            echo "ERROR: no se ha generado ningún APK."
+            find . -name "*.apk" 2>/dev/null
+            exit 1
+          fi
+          echo "APK encontrado: $APK"
+          cp "$APK" ./app-release.apk
+          ls -la app-release.apk
+
+      - name: Subir APK como artifact
         uses: actions/upload-artifact@v4
         with:
-          name: disciplina-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: app-release
+          path: app-release.apk
           retention-days: 7
