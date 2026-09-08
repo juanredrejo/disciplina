@@ -55,7 +55,10 @@ class _CalendarTabState extends State<CalendarTab> {
                     child: Text(
                       DateFormat('MMMM yyyy', 'es')
                           .format(_month)
-                          .capitalize(),
+                          .toLowerCase()
+                          .split(' ')
+                          .map((w) => w.isNotEmpty ? w[0].toUpperCase() + w.substring(1) : w)
+                          .join(' '),
                       textAlign: TextAlign.center,
                       style: theme.textTheme.titleMedium
                           ?.copyWith(fontWeight: FontWeight.w700),

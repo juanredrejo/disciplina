@@ -71,6 +71,18 @@ class TodayTab extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  'Mantén pulsada una tarjeta para editarla',
+                  style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant),
+                ),
+              ),
+            ),
+            const SizedBox(height: 4),
             Expanded(
               child: ListView.separated(
                 padding: const EdgeInsets.all(16),
@@ -89,6 +101,8 @@ class TodayTab extends StatelessWidget {
                     onToggleToday: () =>
                         service.toggle(habit.id, todayKey),
                     onEdit: () =>
+                        showAddHabitSheet(context, service, habit: habit),
+                    onLongPress: () =>
                         showAddHabitSheet(context, service, habit: habit),
                     onDelete: () => service.deleteHabit(habit.id),
                   );

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Disciplina</string>
+    <string name="widget_description">Hábitos de hoy: tócalos para marcarlos sin abrir la app.</string>
 </resources>

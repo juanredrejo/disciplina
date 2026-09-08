@@ -41,7 +41,7 @@ class HabitService {
       final snap = await tx.get(ref);
       final data = snap.data() ?? {};
       final dates =
-          ((data['completedDates'] as List?) ?? <dynamic>()).toSet();
+          Set<String>.from(data['completedDates'] as List? ?? []);
       if (dates.contains(dateKey)) {
         dates.remove(dateKey);
       } else {

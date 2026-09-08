@@ -147,7 +147,6 @@ class StatsTab extends StatelessWidget {
                               ),
                             ),
                           ),
-                          axisSideTitles: const AxisSideTitles(showTitles: false),
                           barGroups: List.generate(weekData.length, (i) {
                             final v = weekData[i];
                             final isLast = i == weekData.length - 1;

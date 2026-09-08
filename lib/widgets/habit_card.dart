@@ -10,6 +10,7 @@ class HabitCard extends StatelessWidget {
   final VoidCallback onToggleToday;
   final VoidCallback onEdit;
   final VoidCallback onDelete;
+  final VoidCallback? onLongPress;
 
   const HabitCard({
     super.key,
@@ -20,6 +21,7 @@ class HabitCard extends StatelessWidget {
     required this.onToggleToday,
     required this.onEdit,
     required this.onDelete,
+    this.onLongPress,
   });
 
   @override
@@ -32,6 +34,7 @@ class HabitCard extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: dueToday ? onToggleToday : onEdit,
+        onLongPress: onLongPress,
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(

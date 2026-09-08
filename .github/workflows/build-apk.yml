@@ -12,15 +12,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup JDK 17
+      - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Setup Flutter
+      - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.35.5'
           channel: stable
           cache: true
 
@@ -35,3 +36,4 @@ jobs:
         with:
           name: disciplina-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+          retention-days: 7

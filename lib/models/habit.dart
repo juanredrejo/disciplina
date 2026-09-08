@@ -116,7 +116,7 @@ HabitStats computeStats(Habit habit, DateTime now) {
   // Racha máxima + totales, recorriendo desde la creación hasta hoy.
   var longest = 0;
   var run = 0;
-  totalCompletions = 0;
+  var totalCompletions = 0;
   var start = DateTime.fromMillisecondsSinceEpoch(habit.createdAt);
   start = Dates.startOfDay(start);
   var d = start;
